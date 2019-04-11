@@ -12,7 +12,9 @@
     "nodemon": "^1.17.2"
   },
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "client": "cd friends/src && npm start",
+    "dev": "concurrently --names \"server,client\" \"npm run start --silent\" \"npm run client --silent\""
   },
   "author": "Lambda School",
   "license": "ISC"
