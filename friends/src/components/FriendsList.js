@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getFriends} from '../actions/fetch';
+import {Link} from 'react-router-dom';
 import Friend from './Friend';
 
 class FriendsList extends Component {
@@ -8,14 +9,25 @@ class FriendsList extends Component {
         friends: this.props.friends
     }
     componentDidMount() {
-        this.props.getFriends();
+        this
+            .props
+            .getFriends();
     }
     render() {
-        console.log(this.props)
+        const friends = this
+            .props
+            .friends
+            .map(friend =>< Friend friend = {
+                friend
+            }
+            key = {
+                friend.id
+            } />);
+
         return (
             <div>
-                <h1>My Frands:</h1>
-                {this.props.friends.map(friend=><Friend friend={friend} key={friend.id} />)}
+                <Link to="/add-friends" style={{color:'green'}}>Add Friends</Link>
+                {friends}
             </div>
         )
     }

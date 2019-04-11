@@ -2,6 +2,8 @@ import {LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE} from '../actions/login';
 
 import {FETCH_DATA_START, FETCH_DATA_SUCCESS, FETCH_DATA_FAILURE} from '../actions/fetch';
 
+import {SAVE_FRIEND_START, SAVE_FRIEND_SUCCESS, SAVE_FRIEND_FAILURE} from '../actions/saveFriend';
+
 const initialState = {
     friends: [],
     loggingIn: false,
@@ -39,7 +41,6 @@ export const rootReducer = (state = initialState, action) => {
                 fetchingFriends: true
             };
         case FETCH_DATA_SUCCESS:
-            console.log(action.payload)
             return {
                 ...state,
                 error: null,
@@ -47,10 +48,28 @@ export const rootReducer = (state = initialState, action) => {
                 friends: action.payload
             };
         case FETCH_DATA_FAILURE:
-            console.log(action.payload)
             return {
                 ...state,
                 fetchingData: false,
+                error: action.payload
+            };
+            case SAVE_FRIEND_START:
+            return {
+                ...state,
+                error: null,
+                savingFriends: true
+            };
+        case SAVE_FRIEND_SUCCESS:
+            return {
+                ...state,
+                error: null,
+                savingFriends: false,
+                friends: action.payload
+            };
+        case SAVE_FRIEND_FAILURE:
+            return {
+                ...state,
+                savingFriends: false,
                 error: action.payload
             };
         default:

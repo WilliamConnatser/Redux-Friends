@@ -1,20 +1,21 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {login} from '../actions/login';
+import {saveFriend} from '../actions/saveFriend';
 
-class Login extends Component {
+class AddFriends extends Component {
 
     state = {
-        credentials: {
-            username: '',
-            password: ''
+        friend: {
+            name: '',
+            age: '',
+            email: ''
         }
     }
 
     onChangeHandler = event => {
         this.setState({
-            credentials: {
-                ...this.state.credentials,
+            friend: {
+                ...this.state.friend,
                 [event.currentTarget.name]: event.currentTarget.value
             }
         });
@@ -24,7 +25,7 @@ class Login extends Component {
         event.preventDefault();
         this
             .props
-            .login(this.state.credentials)
+            .saveFriend(this.state.friend)
             .then(() => {
                 this
                     .props
@@ -38,16 +39,22 @@ class Login extends Component {
             <form onSubmit={this.onSubmitHandler}>
                 <h2>Add A Friend</h2>
                 <input
-                    name="username"
-                    value={this.state.credentials.username}
+                    name="name"
+                    value={this.state.friend.name}
                     onChange={this.onChangeHandler}
-                    placeholder="username"/>
+                    placeholder="name"/>
                 <br/>
                 <input
-                    name="password"
-                    value={this.state.credentials.password}
+                    name="age"
+                    value={this.state.friend.age}
                     onChange={this.onChangeHandler}
-                    placeholder="password"/>
+                    placeholder="age"/>
+                <br/>
+                <input
+                    name="email"
+                    value={this.state.friend.email}
+                    onChange={this.onChangeHandler}
+                    placeholder="email"/>
                 <br/>
                 <button type="submit">Submit</button>
             </form>
@@ -55,8 +62,8 @@ class Login extends Component {
     }
 }
 
-const mapStoreToProps = ({loggingIn, error}) => {
-    return {error, loggingIn}
+const mapStoreToProps = ({savingFriends, error}) => {
+    return {error, savingFriends}
 }
 
-export default connect(mapStoreToProps, {login})(Login);
+export default connect(mapStoreToProps, {saveFriend})(AddFriends);
